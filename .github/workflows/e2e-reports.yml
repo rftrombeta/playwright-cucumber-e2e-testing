@@ -24,9 +24,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -52,25 +49,8 @@ jobs:
         run: |
           mkdir -p site
 
-          if [ -f cucumber-native-report.html ]; then
-            cp cucumber-native-report.html site/
-          fi
-
           if [ -f cucumber-custom-report.html ]; then
             cp cucumber-custom-report.html site/
-          fi
-
-          if [ -f cucumber-report.json ]; then
-            cp cucumber-report.json site/
-          fi
-
-          if [ -d test-results/screenshots ]; then
-            mkdir -p site/test-results
-            cp -r test-results/screenshots site/test-results/
-          fi
-
-          if [ -d playwright-report ]; then
-            cp -r playwright-report site/
           fi
 
           cat > site/index.html << 'EOF'
@@ -84,12 +64,9 @@ jobs:
           <body>
             <h1>Relatórios E2E</h1>
             <ul>
-              <li><a href="./cucumber-native-report.html">Cucumber HTML (nativo)</a></li>
               <li><a href="./cucumber-custom-report.html">Cucumber HTML (custom)</a></li>
-              <li><a href="./playwright-report/index.html">Playwright HTML (quando disponível)</a></li>
-              <li><a href="./cucumber-report.json">Cucumber JSON</a></li>
             </ul>
-            <p>Se algum link não abrir, significa que aquele relatório não foi gerado nesta execução.</p>
+            <p>Relatório customizado publicado automaticamente pelo GitHub Actions.</p>
           </body>
           </html>
           EOF
