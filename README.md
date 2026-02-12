@@ -1,6 +1,6 @@
 # Automacao Playwright + Cucumber E2E
 
-Projeto de automação E2E para o site https://front.serverest.dev, usando Playwright e Cucumber com relatório HTML customizado.
+Projeto de automação E2E para o site https://www.saucedemo.com/, usando Playwright e Cucumber com relatório HTML customizado.
 
 Documentação complementar:
 - Guia de relatórios e publicação: [REPORT.md](REPORT.md)
@@ -69,8 +69,8 @@ npm run codegen
 Credenciais (quando necessário):
 
 ```bash
-export SERVEREST_EMAIL="seu-email@example.com"
-export SERVEREST_PASSWORD="sua-senha"
+export SAUCEDEMO_USERNAME="standard_user"
+export SAUCEDEMO_PASSWORD="secret_sauce"
 ```
 
 Execução Cucumber:
