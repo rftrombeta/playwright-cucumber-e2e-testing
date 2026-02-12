@@ -28,6 +28,7 @@ Saídas esperadas:
 - `cucumber-custom-report.html`
 - `cucumber-report.json`
 - `test-results/screenshots/`
+- `test-results/videos/`
 
 ---
 
@@ -37,3 +38,26 @@ Saídas esperadas:
 - URL: https://rftrombeta.github.io/playwright-cucumber-e2e-testing/
 
 O deploy publica o próprio relatório customizado como página inicial.
+
+### Vídeo por cenário
+
+O projeto grava vídeo por cenário de forma incremental ao final da execução.
+
+- Padrão: habilitado
+- Desabilitar: `VIDEO=false npm run test:cucumber`
+- Arquivos: `test-results/videos/*.webm`
+
+### Vídeos no GitHub Actions
+
+Os vídeos também ficam disponíveis para download como artifact da pipeline:
+
+- Artifact: `cucumber-videos`
+- Retenção: `7` dias
+- Caminho no artifact: `test-results/videos/`
+
+### Vídeos no GitHub Pages (HTML)
+
+Além do artifact, os vídeos também são publicados em uma página HTML:
+
+- URL: `https://rftrombeta.github.io/playwright-cucumber-e2e-testing/videos/`
+- Formato: galeria com player `<video>` para cada arquivo `.webm`

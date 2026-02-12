@@ -9,7 +9,6 @@
 
 const reporter = require('cucumber-html-reporter');
 const fs = require('fs');
-const path = require('path');
 
 // Caminho para o arquivo JSON gerado pelo Cucumber
 const jsonFile = 'cucumber-report.json';
@@ -23,8 +22,31 @@ if (!fs.existsSync(jsonFile)) {
   process.exit(1);
 }
 
-// Ler dados do JSON
-const jsonData = JSON.parse(fs.readFileSync(jsonFile));
+function injectInlineVideoPlayers(reportPath) {
+  if (!fs.existsSync(reportPath)) return;
+
+  const html = fs.readFileSync(reportPath, 'utf-8');
+
+  const videoLinkPattern = /<a\s+href="(data:[^"]+)"\s+download="file\.webm">\s*download file\s*<\/a>/gi;
+
+  const updated = html.replace(videoLinkPattern, (_match, videoDataUri) => {
+    const mimeTypeMatch = /^data:([^;]+);base64,/i.exec(videoDataUri);
+    const sourceMimeType = mimeTypeMatch ? mimeTypeMatch[1] : 'video/webm';
+
+    return [
+      '<div style="margin:12px 0;">',
+      `  <video controls preload="metadata" width="720">`,
+      `    <source src="${videoDataUri}" type="${sourceMimeType}" />`,
+      '    Seu navegador não suporta vídeo WebM.',
+      '  </video>',
+      '  <br/>',
+      `  <a href="${videoDataUri}" download="scenario.webm">Baixar vídeo</a>`,
+      '</div>'
+    ].join('\n');
+  });
+
+  fs.writeFileSync(reportPath, updated, 'utf-8');
+}
 
 // Obter informações do sistema
 const os = require('os');
@@ -54,6 +76,7 @@ const options = {
 // Gerar relatório
 try {
   reporter.generate(options);
+  injectInlineVideoPlayers(htmlFile);
   console.log(`✅ Relatório gerado com sucesso: ${htmlFile}`);
   console.log(`📸 Screenshots: test-results/screenshots/`);
 } catch (error) {

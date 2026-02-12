@@ -1,4 +1,4 @@
-import { Browser, Page } from '@playwright/test';
+import { Browser, BrowserContext, Page } from '@playwright/test';
 import { LoginActions } from './pages/login';
 import { ProductsActions } from './pages/products';
 import { CartActions } from './pages/cart';
@@ -12,6 +12,7 @@ import { CartActions } from './pages/cart';
  */
 export interface SauceLabsContext {
   browser?: Browser;         // ← Instância do navegador Chromium
+  browserContext?: BrowserContext;  // ← Contexto com gravação de vídeo
   page?: Page;               // ← Página do navegador
   loginActions?: LoginActions;  // ← Ações de login
   productsActions?: ProductsActions;  // ← Ações da página de produtos
@@ -21,6 +22,7 @@ export interface SauceLabsContext {
     password: string;
   };
   lastError?: string;        // ← Último erro capturado
+  lastVideoPath?: string;    // ← Caminho do último vídeo gravado
 }
 
 /**

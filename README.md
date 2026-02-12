@@ -158,6 +158,14 @@ npm run test:cucumber:tag -- "@smoke"
 npm run test:cucumber:tag -- "@regressao and @positivo"
 ```
 
+### Execução com opções visuais
+
+```bash
+HEADLESS=false npm run test:cucumber
+SLOWMO=1000 npm run test:cucumber
+VIDEO=false npm run test:cucumber
+```
+
 > **💡 Mais comandos e padrões de tags**  
 > Consulte **[TESTING.md](TESTING.md)**.
 

@@ -1,10 +1,12 @@
 import { Before, After, AfterStep, setDefaultTimeout } from '@cucumber/cucumber';
 import { chromium } from '@playwright/test';
+import * as fs from 'fs';
 import { createLoginPage } from './pages/login';
 import { context, resetContext } from './context';
 import { takeScreenshot, takeScreenshotOnError, cleanOldScreenshots } from './screenshot';
 import { createProductsPage } from './pages/products';
 import { createCartPage } from './pages/cart';
+import { buildVideoFilePath, cleanOldVideos, ensureVideosDir, getVideosDir } from './video';
 
 /**
  * Configurações globais do Cucumber
@@ -40,6 +42,7 @@ Before(async function () {
     // HEADLESS=true npm run test:cucumber    → Headless (padrão)
     const headless = process.env.HEADLESS !== 'false';
     const slowMo = process.env.SLOWMO ? parseInt(process.env.SLOWMO) : undefined;
+    const captureVideo = process.env.VIDEO !== 'false';
 
     // Lançar navegador
     context.browser = await chromium.launch({
@@ -47,8 +50,20 @@ Before(async function () {
         slowMo,  // Opcional: para debug visual
     });
 
-    // Criar nova página
-    context.page = await context.browser!.newPage();
+    // Criar contexto e página (com vídeo por cenário)
+    if (captureVideo) {
+        ensureVideosDir();
+        context.browserContext = await context.browser!.newContext({
+            recordVideo: {
+                dir: getVideosDir(),
+                size: { width: 1280, height: 720 }
+            }
+        });
+    } else {
+        context.browserContext = await context.browser!.newContext();
+    }
+
+    context.page = await context.browserContext.newPage();
 
     // Instanciar ações (métodos reutilizáveis)
     context.loginActions = createLoginPage(context.page);
@@ -122,6 +137,9 @@ AfterStep(async function (step) {
  * // Executado automaticamente após cada Cenário (sucesso ou erro)
  */
 After(async function (scenario) {
+    let rawVideoPath = '';
+    let recordedVideo: ReturnType<NonNullable<typeof context.page>['video']> | null = null;
+
     // Se o cenário falhou, capturar screenshot
     if (scenario.result?.status === 'FAILED' && context.page) {
         const screenshotPath = await takeScreenshotOnError(
@@ -138,9 +156,47 @@ After(async function (scenario) {
         }
     }
 
-    // Fechar página
+    // Fechar página e salvar vídeo do cenário
     if (context.page) {
+        recordedVideo = context.page.video();
         await context.page.close();
+    }
+
+    // Fechar contexto do navegador
+    if (context.browserContext) {
+        await context.browserContext.close();
+    }
+
+    if (recordedVideo) {
+        try {
+            rawVideoPath = await recordedVideo.path();
+        } catch (error) {
+            console.error(`Erro ao obter caminho do vídeo: ${error}`);
+        }
+    }
+
+    if (rawVideoPath && fs.existsSync(rawVideoPath) && fs.statSync(rawVideoPath).size > 0) {
+        const scenarioName = scenario.pickle?.name || 'unknown-scenario';
+        const finalVideoPath = buildVideoFilePath(scenarioName);
+
+        try {
+            fs.renameSync(rawVideoPath, finalVideoPath);
+        } catch {
+            fs.copyFileSync(rawVideoPath, finalVideoPath);
+            fs.unlinkSync(rawVideoPath);
+        }
+        context.lastVideoPath = finalVideoPath;
+
+        try {
+            this.attach(
+                fs.readFileSync(finalVideoPath),
+                'video/webm'
+            );
+        } catch (error) {
+            console.error(`Erro ao anexar vídeo no relatório: ${error}`);
+        }
+
+        this.attach(`Vídeo do cenário salvo em: ${finalVideoPath}`, 'text/plain');
     }
 
     // Fechar navegador
@@ -150,4 +206,5 @@ After(async function (scenario) {
 
     // Limpar screenshots com mais de 7 dias
     cleanOldScreenshots(7);
+    cleanOldVideos(7);
 });
