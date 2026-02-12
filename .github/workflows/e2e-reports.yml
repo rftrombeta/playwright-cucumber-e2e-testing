@@ -42,7 +42,7 @@ jobs:
 
       - name: Generate custom Cucumber report
         if: always()
-        run: npm run report
+        run: REPORT_MEDIA_BASE_PATH=videos npm run report
 
       - name: Upload videos artifact
         if: always()

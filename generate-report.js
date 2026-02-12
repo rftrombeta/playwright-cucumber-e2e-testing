@@ -9,6 +9,7 @@
 
 const reporter = require('cucumber-html-reporter');
 const fs = require('fs');
+const path = require('path');
 
 // Caminho para o arquivo JSON gerado pelo Cucumber
 const jsonFile = 'cucumber-report.json';
@@ -26,21 +27,23 @@ function injectInlineVideoPlayers(reportPath) {
   if (!fs.existsSync(reportPath)) return;
 
   const html = fs.readFileSync(reportPath, 'utf-8');
+  const mediaBasePath = process.env.REPORT_MEDIA_BASE_PATH || 'test-results/videos';
 
-  const videoLinkPattern = /<a\s+href="(data:[^"]+)"\s+download="file\.webm">\s*download file\s*<\/a>/gi;
+  const videoAttachmentPattern = /<a\s+href="data:[^"]+"\s+download="file\.webm">\s*download file\s*<\/a><br>\s*Vídeo do cenário salvo em:\s*([^<\n]+\.webm)/gi;
 
-  const updated = html.replace(videoLinkPattern, (_match, videoDataUri) => {
-    const mimeTypeMatch = /^data:([^;]+);base64,/i.exec(videoDataUri);
-    const sourceMimeType = mimeTypeMatch ? mimeTypeMatch[1] : 'video/webm';
+  const updated = html.replace(videoAttachmentPattern, (_match, savedVideoPath) => {
+    const fileName = path.basename(savedVideoPath.trim());
+    const normalizedBasePath = mediaBasePath.replace(/\\/g, '/').replace(/\/$/, '');
+    const videoPath = `${normalizedBasePath}/${fileName}`;
 
     return [
       '<div style="margin:12px 0;">',
       `  <video controls preload="metadata" width="720">`,
-      `    <source src="${videoDataUri}" type="${sourceMimeType}" />`,
+      `    <source src="${videoPath}" type="video/webm" />`,
       '    Seu navegador não suporta vídeo WebM.',
       '  </video>',
       '  <br/>',
-      `  <a href="${videoDataUri}" download="scenario.webm">Baixar vídeo</a>`,
+      `  <a href="${videoPath}" download="${fileName}">Baixar vídeo</a>`,
       '</div>'
     ].join('\n');
   });
