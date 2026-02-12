@@ -28,7 +28,8 @@ npm run test:cucumber:html    # Abrir relatório
 
 O relatório HTML será gerado em:
 ```
-cucumber-report.html
+cucumber-native-report.html   (Cucumber nativo)
+cucumber-custom-report.html   (Cucumber custom)
 ```
 
 Screenshots são salvos em:
@@ -85,7 +86,8 @@ support/
 test-results/
 └── screenshots/      ← Screenshots gerados
 
-cucumber-report.html  ← Relatório final
+cucumber-native-report.html  ← Relatório Cucumber nativo
+cucumber-custom-report.html  ← Relatório Cucumber custom
 cucumber-report.json  ← Dados brutos
 ```
 
@@ -140,6 +142,18 @@ npm run test:cucumber:html
 ```
 
 O navegador abrirá o relatório HTML com todos os screenshots!
+
+---
+
+## 🌐 Visualização Online (GitHub Pages)
+
+Após push na branch `main`, o workflow publica os relatórios em uma página índice no GitHub Pages.
+
+Arquivos publicados:
+- `cucumber-native-report.html`
+- `cucumber-custom-report.html`
+- `cucumber-report.json`
+- `playwright-report/` (quando existir)
 
 ---
 

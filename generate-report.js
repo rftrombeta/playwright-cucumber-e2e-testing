@@ -13,7 +13,7 @@ const path = require('path');
 
 // Caminho para o arquivo JSON gerado pelo Cucumber
 const jsonFile = 'cucumber-report.json';
-const htmlFile = 'cucumber-report.html';
+const htmlFile = 'cucumber-custom-report.html';
 
 // Verificar se arquivo existe
 if (!fs.existsSync(jsonFile)) {

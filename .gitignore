@@ -1,5 +1,7 @@
 node_modules/
 playwright-report/
 test-results/
+cucumber-native-report.html
+cucumber-custom-report.html
 cucumber-report.html
 cucumber-report.json

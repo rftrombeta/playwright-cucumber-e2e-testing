@@ -2,6 +2,30 @@
 
 Projeto de automação E2E usando Playwright para testes do site https://front.serverest.dev
 
+## Cucumber + Relatórios
+
+### Executar testes Cucumber
+```bash
+npm run test:cucumber
+```
+
+### Gerar relatório customizado
+```bash
+npm run report
+```
+
+### Arquivos de relatório gerados
+- `cucumber-native-report.html` (HTML nativo do Cucumber)
+- `cucumber-custom-report.html` (HTML customizado via `cucumber-html-reporter`)
+- `cucumber-report.json` (dados brutos)
+
+## Publicação dos relatórios (GitHub Pages)
+
+O workflow em `.github/workflows/e2e-reports.yml` executa os testes e publica os relatórios automaticamente a cada push na branch `main`.
+
+Após o deploy, acesse:
+- `https://rftrombeta.github.io/playwright-cucumber-e2e-testing/`
+
 ## Requisitos
 - Node.js 18+ recomendado
 

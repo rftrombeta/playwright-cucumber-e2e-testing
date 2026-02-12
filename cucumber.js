@@ -10,7 +10,7 @@ module.exports = {
     requireModule: ['ts-node/register'],
     format: [
       'progress',
-      'html:cucumber-report.html',
+      'html:cucumber-native-report.html',
       'json:cucumber-report.json'
     ],
     formatOptions: { snippetInterface: 'async-await' },
