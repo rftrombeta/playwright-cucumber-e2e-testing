@@ -51,25 +51,22 @@ jobs:
 
           if [ -f cucumber-custom-report.html ]; then
             cp cucumber-custom-report.html site/
+            cp cucumber-custom-report.html site/index.html
+          else
+            cat > site/index.html << 'EOF'
+            <!doctype html>
+            <html lang="pt-BR">
+            <head>
+              <meta charset="utf-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1" />
+              <title>Relatório não encontrado</title>
+            </head>
+            <body>
+              <h1>Relatório customizado não foi gerado nesta execução.</h1>
+            </body>
+            </html>
+            EOF
           fi
-
-          cat > site/index.html << 'EOF'
-          <!doctype html>
-          <html lang="pt-BR">
-          <head>
-            <meta charset="utf-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <title>Relatórios E2E</title>
-          </head>
-          <body>
-            <h1>Relatórios E2E</h1>
-            <ul>
-              <li><a href="./cucumber-custom-report.html">Cucumber HTML (custom)</a></li>
-            </ul>
-            <p>Relatório customizado publicado automaticamente pelo GitHub Actions.</p>
-          </body>
-          </html>
-          EOF
 
       - name: Upload Pages artifact
         if: always()
