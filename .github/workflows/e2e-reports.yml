@@ -53,19 +53,7 @@ jobs:
             cp cucumber-custom-report.html site/
             cp cucumber-custom-report.html site/index.html
           else
-            cat > site/index.html << 'EOF'
-            <!doctype html>
-            <html lang="pt-BR">
-            <head>
-              <meta charset="utf-8" />
-              <meta name="viewport" content="width=device-width, initial-scale=1" />
-              <title>Relatório não encontrado</title>
-            </head>
-            <body>
-              <h1>Relatório customizado não foi gerado nesta execução.</h1>
-            </body>
-            </html>
-            EOF
+            printf '%s\n' '<!doctype html>' '<html lang="pt-BR">' '<head>' '  <meta charset="utf-8" />' '  <meta name="viewport" content="width=device-width, initial-scale=1" />' '  <title>Relatório não encontrado</title>' '</head>' '<body>' '  <h1>Relatório customizado não foi gerado nesta execução.</h1>' '</body>' '</html>' > site/index.html
           fi
 
       - name: Upload Pages artifact
