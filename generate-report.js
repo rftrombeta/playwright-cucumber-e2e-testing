@@ -25,6 +25,7 @@ if (!fs.existsSync(jsonFile)) {
 
 function injectInlineVideoPlayers(reportPath) {
   if (!fs.existsSync(reportPath)) return;
+  if (process.env.REPORT_INLINE_VIDEO !== 'true') return;
 
   const html = fs.readFileSync(reportPath, 'utf-8');
   const mediaBasePath = process.env.REPORT_MEDIA_BASE_PATH || 'test-results/videos';
