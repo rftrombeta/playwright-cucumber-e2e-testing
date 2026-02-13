@@ -23,7 +23,7 @@ import { context } from '../../../support/context';
  * @example
  * Dado que estou na página de login do Sauce Labs
  */
-Dado('que estou na página de login do Sauce Labs', async () => {
+Dado('que estou na pagina de login do Sauce Labs', async () => {
   await context.loginActions!.gotoSwaglabs();
   await context.loginActions!.formloginValidation();
 });
@@ -38,7 +38,7 @@ Dado('que estou na página de login do Sauce Labs', async () => {
  * @example
  * Quando preencho o campo de usuário com "standard_user"
  */
-Quando('preencho o campo de usuário com {string}', async (username: string) => {
+Quando('preencho o campo de usuario com {string}', async (username: string) => {
   await context.loginActions!.fillUsername(username);
   context.currentUser = { username, password: '' };
 });
@@ -62,7 +62,7 @@ Quando('preencho o campo de senha com {string}', async (password: string) => {
  * @example
  * E clico no botão Login
  */
-Quando('clico no botão Login', async () => {
+Quando('clico no botao Login', async () => {
   await context.loginActions!.clickLoginButton();
 });
 
@@ -72,7 +72,7 @@ Quando('clico no botão Login', async () => {
  * @example
  * Quando clico no botão Login sem preencher campos
  */
-Quando('clico no botão Login sem preencher campos', async () => {
+Quando('clico no botao Login sem preencher campos', async () => {
   await context.loginActions!.clickLoginButton();
 });
 
@@ -97,7 +97,7 @@ Então('devo estar logado com sucesso', async () => {
  * @example
  * Então devo ver a página de produtos
  */
-Então('devo ver a página de produtos', async () => {
+Então('devo ver a pagina de produtos', async () => {
   const productList = context.page!.locator('div.inventory_list');
   await expect(productList).toBeVisible();
 
@@ -128,7 +128,7 @@ Então('devo ver mensagem de erro de login', async () => {
  * @example
  * Então devo ver mensagem de usuário bloqueado
  */
-Então('devo ver mensagem de usuário bloqueado', async () => {
+Então('devo ver mensagem de usuario bloqueado', async () => {
   const errorMessage = context.page!.locator('[data-test="error"]');
   await expect(errorMessage).toBeVisible();
 
@@ -146,7 +146,7 @@ Então('devo ver mensagem de usuário bloqueado', async () => {
  *   | Logo Swag Labs |
  *   | Campo Username |
  */
-Então('devo ver os seguintes elementos na página de login:', async (dataTable: DataTable) => {
+Então('devo ver os seguintes elementos na pagina de login:', async (dataTable: DataTable) => {
   const elementos = dataTable.raw().map(row => row[0]);
 
   for (const elemento of elementos) {
@@ -160,7 +160,7 @@ Então('devo ver os seguintes elementos na página de login:', async (dataTable:
  * @example
  * Então devo ver mensagem de erro obrigatório
  */
-Então('devo ver mensagem de erro obrigatório', async () => {
+Então('devo ver mensagem de erro obrigatorio', async () => {
   const errorMessage = context.page!.locator('[data-test="error"]');
   await expect(errorMessage).toBeVisible();
 

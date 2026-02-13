@@ -22,7 +22,7 @@ import { context } from '../../../support/context';
  * @example
  * Dado que estou na página de produtos
  */
-Dado('que estou na página de produtos', async () => {
+Dado('que estou na pagina de produtos', async () => {
   const productsActions = context.productsActions!;
   await productsActions.formProductsValidation();
 });
@@ -59,7 +59,7 @@ Quando('removo o produto {string} do carrinho', async (productName: string) => {
  * @example
  * Quando removo o produto "Sauce Labs Backpack" do carrinho na página do carrinho
  */
-Quando('removo o produto {string} do carrinho na página do carrinho', async (productName: string) => {
+Quando('removo o produto {string} do carrinho na pagina do carrinho', async (productName: string) => {
   const cartActions = context.cartActions!;
   await cartActions.removeProductFromCart(productName);
 });
@@ -70,7 +70,7 @@ Quando('removo o produto {string} do carrinho na página do carrinho', async (pr
  * @example
  * E clico no ícone do carrinho
  */
-Quando('clico no ícone do carrinho', async () => {
+Quando('clico no icone do carrinho', async () => {
   const cartActions = context.cartActions!;
   await cartActions.clickCartIcon();
 });
@@ -105,7 +105,7 @@ Quando('clico em Checkout', async () => {
  *   | firstName | lastName  | postalCode |
  *   | John      | Doe       | 12345      |
  */
-Quando('preencho as informações do checkout:', async (dataTable: DataTable) => {
+Quando('preencho as informacoes do checkout:', async (dataTable: DataTable) => {
   const cartActions = context.cartActions!;
   const [data] = dataTable.hashes();
   
@@ -122,7 +122,7 @@ Quando('preencho as informações do checkout:', async (dataTable: DataTable) =>
  * @example
  * E clico em Continue na página de informações
  */
-Quando('clico em Continue na página de informações', async () => {
+Quando('clico em Continue na pagina de informacoes', async () => {
   const cartActions = context.cartActions!;
   await cartActions.clickContinueCheckout();
 });
@@ -159,7 +159,7 @@ Então('o badge do carrinho deve mostrar {string}', async (count: string) => {
  * @example
  * Então o badge do carrinho não deve estar visível
  */
-Então('o badge do carrinho não deve estar visível', async () => {
+Então('o badge do carrinho nao deve estar visivel', async () => {
   const cartActions = context.cartActions!;
   await cartActions.validateCartBadgeNotVisible();
 });
@@ -170,7 +170,7 @@ Então('o badge do carrinho não deve estar visível', async () => {
  * @example
  * E devo estar na página do carrinho
  */
-Então('devo estar na página do carrinho', async () => {
+Então('devo estar na pagina do carrinho', async () => {
   const cartActions = context.cartActions!;
   await cartActions.validateCartPage();
 });
@@ -196,7 +196,7 @@ Então('o produto {string} deve estar no carrinho', async (productName: string) 
  * @example
  * E devo estar na página de informações do checkout
  */
-Então('devo estar na página de informações do checkout', async () => {
+Então('devo estar na pagina de informacoes do checkout', async () => {
   const cartActions = context.cartActions!;
   await cartActions.validateCheckoutInfoPage();
 });
@@ -207,7 +207,7 @@ Então('devo estar na página de informações do checkout', async () => {
  * @example
  * E devo estar na página de resumo do checkout
  */
-Então('devo estar na página de resumo do checkout', async () => {
+Então('devo estar na pagina de resumo do checkout', async () => {
   const cartActions = context.cartActions!;
   await cartActions.validateCheckoutOverviewPage();
 });
@@ -220,7 +220,7 @@ Então('devo estar na página de resumo do checkout', async () => {
  *   | Payment Information    |
  *   | Shipping Information   |
  */
-Então('devo ver os elementos da página de resumo:', async (dataTable: DataTable) => {
+Então('devo ver os elementos da pagina de resumo:', async (dataTable: DataTable) => {
   const cartActions = context.cartActions!;
   
   // DataTable de uma coluna - validar que elementos estão visíveis
@@ -256,7 +256,7 @@ Então('devo ver a mensagem de dispatch {string}', async (expectedMessage: strin
  * @example
  * Então devo estar na página de produtos
  */
-Então('devo estar na página de produtos', async () => {
+Então('devo estar na pagina de produtos', async () => {
   const productsActions = context.productsActions!;
   await productsActions.formProductsValidation();
 });

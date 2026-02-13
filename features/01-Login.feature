@@ -4,42 +4,42 @@
 Funcionalidade: Login - Sauce Labs Demo
 
   @001-001 @login @validacao
-  Cenário: Validar elementos da página de login
-    Dado que estou na página de login do Sauce Labs
-    Então devo ver os seguintes elementos na página de login:
+  Cenario: Validar elementos da pagina de login
+    Dado que estou na pagina de login do Sauce Labs
+    Entao devo ver os seguintes elementos na pagina de login:
       | Logo Swag Labs |
       | Campo Username |
       | Campo Password |
-      | Botão Login    |
+      | Botao Login    |
       | Mensagem de ajuda |
 
   @001-002 @login @smoke @positivo
-  Cenário: Realizar login com usuário padrão com sucesso
-    Dado que estou na página de login do Sauce Labs
-    Quando preencho o campo de usuário com "standard_user"
+  Cenario: Realizar login com usuario padrao com sucesso
+    Dado que estou na pagina de login do Sauce Labs
+    Quando preencho o campo de usuario com "standard_user"
     E preencho o campo de senha com "secret_sauce"
-    E clico no botão Login
-    Então devo estar logado com sucesso
-    E devo ver a página de produtos
+    E clico no botao Login
+    Entao devo estar logado com sucesso
+    E devo ver a pagina de produtos
 
   @001-003 @login @negativo @regressao
-  Cenário: Tentar login com senha incorreta
-    Dado que estou na página de login do Sauce Labs
-    Quando preencho o campo de usuário com "standard_user"
+  Cenario: Tentar login com senha incorreta
+    Dado que estou na pagina de login do Sauce Labs
+    Quando preencho o campo de usuario com "standard_user"
     E preencho o campo de senha com "senha_errada"
-    E clico no botão Login
-    Então devo ver mensagem de erro de login
+    E clico no botao Login
+    Entao devo ver mensagem de erro de login
     
   @001-004 @login @negativo @regressao
-  Cenário: Tentar login com usuário bloqueado
-    Dado que estou na página de login do Sauce Labs
-    Quando preencho o campo de usuário com "locked_out_user"
+  Cenario: Tentar login com usuario bloqueado
+    Dado que estou na pagina de login do Sauce Labs
+    Quando preencho o campo de usuario com "locked_out_user"
     E preencho o campo de senha com "secret_sauce"
-    E clico no botão Login
-    Então devo ver mensagem de usuário bloqueado
+    E clico no botao Login
+    Entao devo ver mensagem de usuario bloqueado
 
   @001-005 @login @negativo @regressao
-  Cenário: Fazer login sem preencher campos
-    Dado que estou na página de login do Sauce Labs
-    Quando clico no botão Login sem preencher campos
-    Então devo ver mensagem de erro obrigatório
+  Cenario: Fazer login sem preencher campos
+    Dado que estou na pagina de login do Sauce Labs
+    Quando clico no botao Login sem preencher campos
+    Entao devo ver mensagem de erro obrigatorio

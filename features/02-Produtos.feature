@@ -1,21 +1,21 @@
 # language: pt
 
 @002-produtos
-Funcionalidade: Validação de Produtos - Sauce Labs
-  Como um usuário da plataforma Sauce Labs
-  Quero visualizar produtos disponíveis
-  Para selecionar e validar as informações de cada produto
+Funcionalidade: Validacao de Produtos - Sauce Labs
+  Como um usuario da plataforma Sauce Labs
+  Quero visualizar produtos disponiveis
+  Para selecionar e validar as informacoes de cada produto
 
   Contexto:
-    Dado que estou logado com o usuário "standard_user"
-    E valido que a página de produtos carregou corretamente
+    Dado que estou logado com o usuario "standard_user"
+    E valido que a pagina de produtos carregou corretamente
 
-  # ==================== Cenários de Validação da Página ====================
+  # ==================== Cenarios de Validacao da Pagina ====================
 
   @002-001 @validacao @smoke @positivo
-  Cenário: Visualizar lista de produtos disponíveis
+  Cenario: Visualizar lista de produtos disponiveis
     Quando obtenho a lista de produtos
-    Então devem existir 6 produtos na página
+    Entao devem existir 6 produtos na pagina
     E a lista deve conter os seguintes produtos:
       | Sauce Labs Backpack      |
       | Sauce Labs Bike Light    |
@@ -24,33 +24,33 @@ Funcionalidade: Validação de Produtos - Sauce Labs
       | Sauce Labs Onesie        |
       | Test.allTheThings() T-Shirt (Red) |
 
-  # ==================== Cenários de Detalhes do Produto ====================
+  # ==================== Cenarios de Detalhes do Produto ====================
 
   @002-002 @detalhes-produto @regressao @positivo
-  Cenário: Clicar em um produto e validar página de detalhes
+  Cenario: Clicar em um produto e validar pagina de detalhes
     Quando clico no produto "Sauce Labs Backpack"
-    Então valido que estou na página de detalhes do produto
+    Entao valido que estou na pagina de detalhes do produto
 
-  # ==================== Cenários de Navegação ====================
+  # ==================== Cenarios de Navegacao ====================
 
   @002-003 @navegacao @regressao @positivo
-  Cenário: Voltar da página de detalhes para a lista de produtos
+  Cenario: Voltar da pagina de detalhes para a lista de produtos
     Quando clico no produto "Sauce Labs Backpack"
-    E valido que estou na página de detalhes do produto
-    E clico no botão voltar
-    Então devem existir 6 produtos na página
+    E valido que estou na pagina de detalhes do produto
+    E clico no botao voltar
+    Entao devem existir 6 produtos na pagina
 
   @002-004 @navegacao @regressao @positivo
-  Cenário: Navegar entre detalhes de múltiplos produtos
+  Cenario: Navegar entre detalhes de multiplos produtos
     Quando clico no produto "Sauce Labs Backpack"
-    E clico no botão voltar
+    E clico no botao voltar
     E clico no produto "Sauce Labs Bike Light"
-    E clico no botão voltar
-    Então devem existir 6 produtos na página
+    E clico no botao voltar
+    Entao devem existir 6 produtos na pagina
 
-  # ==================== Cenários de Validação de Preços ====================
+  # ==================== Cenarios de Validacao de Precos ====================
 
   @002-005 @validar-precos @regressao @positivo
-  Cenário: Validar preço do Backpack
+  Cenario: Validar preco do Backpack
     Quando clico no produto "Sauce Labs Backpack"
-    Então o preço deve ser "$29.99"
+    Entao o preco deve ser "$29.99"

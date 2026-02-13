@@ -54,7 +54,7 @@ export class LoginActions {
   /**
    * Valida visibilidade de elemento específico (mapeamento português)
    * 
-   * @param {string} elementName - Nome do elemento ('Logo Swag Labs', 'Campo Username', 'Campo Password', 'Botão Login', 'Mensagem de ajuda')
+   * @param {string} elementName - Nome do elemento ('Logo Swag Labs', 'Campo Username', 'Campo Password', 'Botao Login', 'Mensagem de ajuda')
    */
   async validateElement(elementName: string) {
     let locator;
@@ -69,7 +69,7 @@ export class LoginActions {
       case 'Campo Password':
         locator = this.elements.passwordInput;
         break;
-      case 'Botão Login':
+      case 'Botao Login':
         locator = this.elements.loginButton;
         break;
       case 'Mensagem de ajuda':

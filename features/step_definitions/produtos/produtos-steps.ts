@@ -23,7 +23,7 @@ import { context } from '../../../support/context';
  * @example
  * Dado que estou logado com o usuário "standard_user"
  */
-Dado('que estou logado com o usuário {string}', async (username: string) => {
+Dado('que estou logado com o usuario {string}', async (username: string) => {
     await context.loginActions!.gotoSwaglabs();
     await context.loginActions!.formloginValidation();
     await context.loginActions!.login(username, 'secret_sauce');
@@ -37,7 +37,7 @@ Dado('que estou logado com o usuário {string}', async (username: string) => {
  * @example
  * Dado que valido que a página de produtos carregou corretamente
  */
-Dado('valido que a página de produtos carregou corretamente', async () => {
+Dado('valido que a pagina de produtos carregou corretamente', async () => {
     await context.productsActions!.formProductsValidation();
 });
 
@@ -51,7 +51,7 @@ Dado('valido que a página de produtos carregou corretamente', async () => {
  * @example
  * Então devem existir 6 produtos na página
  */
-Então('devem existir {int} produtos na página', async (expectedCount: number) => {
+Então('devem existir {int} produtos na pagina', async (expectedCount: number) => {
     const productsPage = context.productsActions!;
     const actualCount = await productsPage.getProductCount();
 
@@ -118,7 +118,7 @@ Quando('clico no produto {string}', async (productName: string) => {
  * @example
  * E valido que estou na página de detalhes do produto
  */
-Quando('valido que estou na página de detalhes do produto', async () => {
+Quando('valido que estou na pagina de detalhes do produto', async () => {
     const productsActions = context.productsActions!;
     await productsActions.productDetailsValidationPage();
 });
@@ -133,7 +133,7 @@ Quando('valido que estou na página de detalhes do produto', async () => {
  * @example
  * Então o preço deve ser "$29.99"
  */
-Então('o preço deve ser {string}', async (expectedPrice: string) => {
+Então('o preco deve ser {string}', async (expectedPrice: string) => {
     const productsActions = context.productsActions!;
     await productsActions.validateProductPrice(expectedPrice);
 });
@@ -148,7 +148,7 @@ Então('o preço deve ser {string}', async (expectedPrice: string) => {
  * @example
  * E clico no botão voltar
  */
-Quando('clico no botão voltar', async () => {
+Quando('clico no botao voltar', async () => {
     const productsActions = context.productsActions!;
     await productsActions.clickBackButton();
 
