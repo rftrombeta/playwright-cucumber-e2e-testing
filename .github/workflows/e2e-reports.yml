@@ -38,7 +38,7 @@ jobs:
 
       - name: Run Cucumber tests
         if: always()
-        run: SCREENSHOTS=false ATTACH_VIDEO=false npm run test:cucumber
+        run: SCREENSHOTS=on-fail ATTACH_VIDEO=false npm run test:cucumber
 
       - name: Generate custom Cucumber report
         if: always()

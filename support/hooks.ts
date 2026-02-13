@@ -142,8 +142,9 @@ After(async function (scenario) {
     const attachVideo = process.env.ATTACH_VIDEO !== 'false';
 
     let attachScreenshots = true;
-    if (process.env.SCREENSHOTS !== undefined) {
-        attachScreenshots = process.env.SCREENSHOTS === 'true';
+    const screenshotMode = process.env.SCREENSHOTS;
+    if (screenshotMode !== undefined) {
+        attachScreenshots = screenshotMode === 'true' || screenshotMode === 'on-fail';
     } else if (process.env.CI === 'true') {
         attachScreenshots = true;
     }
