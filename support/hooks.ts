@@ -139,9 +139,17 @@ AfterStep(async function (step) {
 After(async function (scenario) {
     let rawVideoPath = '';
     let recordedVideo: ReturnType<NonNullable<typeof context.page>['video']> | null = null;
+    const attachVideo = process.env.ATTACH_VIDEO !== 'false';
+
+    let attachScreenshots = true;
+    if (process.env.SCREENSHOTS !== undefined) {
+        attachScreenshots = process.env.SCREENSHOTS === 'true';
+    } else if (process.env.CI === 'true') {
+        attachScreenshots = true;
+    }
 
     // Se o cenário falhou, capturar screenshot
-    if (scenario.result?.status === 'FAILED' && context.page) {
+    if (attachScreenshots && scenario.result?.status === 'FAILED' && context.page) {
         const screenshotPath = await takeScreenshotOnError(
             context.page,
             scenario.pickle?.name || 'unknown-scenario'
@@ -187,16 +195,18 @@ After(async function (scenario) {
         }
         context.lastVideoPath = finalVideoPath;
 
-        try {
-            this.attach(
-                fs.readFileSync(finalVideoPath),
-                'video/webm'
-            );
-        } catch (error) {
-            console.error(`Erro ao anexar vídeo no relatório: ${error}`);
-        }
+        if (attachVideo) {
+            try {
+                this.attach(
+                    fs.readFileSync(finalVideoPath),
+                    'video/webm'
+                );
+            } catch (error) {
+                console.error(`Erro ao anexar vídeo no relatório: ${error}`);
+            }
 
-        this.attach(`Vídeo do cenário salvo em: ${finalVideoPath}`, 'text/plain');
+            this.attach(`Vídeo do cenário salvo em: ${finalVideoPath}`, 'text/plain');
+        }
     }
 
     // Fechar navegador

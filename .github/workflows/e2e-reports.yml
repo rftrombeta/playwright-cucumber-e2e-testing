@@ -38,7 +38,7 @@ jobs:
 
       - name: Run Cucumber tests
         if: always()
-        run: npm run test:cucumber
+        run: SCREENSHOTS=false ATTACH_VIDEO=false npm run test:cucumber
 
       - name: Generate custom Cucumber report
         if: always()
@@ -64,40 +64,6 @@ jobs:
           else
             printf '%s\n' '<!doctype html>' '<html lang="pt-BR">' '<head>' '  <meta charset="utf-8" />' '  <meta name="viewport" content="width=device-width, initial-scale=1" />' '  <title>Relatório não encontrado</title>' '</head>' '<body>' '  <h1>Relatório customizado não foi gerado nesta execução.</h1>' '</body>' '</html>' > site/index.html
           fi
-
-          mkdir -p site/videos
-          if [ -d test-results/videos ]; then
-            cp -r test-results/videos/. site/videos/
-          fi
-
-          {
-            echo '<!doctype html>'
-            echo '<html lang="pt-BR">'
-            echo '<head>'
-            echo '  <meta charset="utf-8" />'
-            echo '  <meta name="viewport" content="width=device-width, initial-scale=1" />'
-            echo '  <title>Vídeos da Execução</title>'
-            echo '</head>'
-            echo '<body>'
-            echo '  <h1>Vídeos da Execução</h1>'
-            echo '  <p><a href="../index.html">⬅ Voltar para o relatório</a></p>'
-
-            if ls site/videos/*.webm >/dev/null 2>&1; then
-              for file in site/videos/*.webm; do
-                name=$(basename "$file")
-                echo "  <h3>$name</h3>"
-                echo "  <video controls preload=\"metadata\" width=\"960\">"
-                echo "    <source src=\"./$name\" type=\"video/webm\" />"
-                echo '    Seu navegador não suporta vídeo WebM.'
-                echo '  </video>'
-              done
-            else
-              echo '  <p>Nenhum vídeo foi gerado nesta execução.</p>'
-            fi
-
-            echo '</body>'
-            echo '</html>'
-          } > site/videos/index.html
 
       - name: Upload Pages artifact
         if: always()
