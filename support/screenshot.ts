@@ -31,7 +31,7 @@ export async function takeScreenshot(page: Page, name: string): Promise<string> 
   ensureScreenshotsDir();
   
   // Gerar timestamp para evitar conflitos
-  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const timestamp = new Date().toISOString().replace(/[\\/:*?"<>|]/g, '-');
   const filename = `${name}-${timestamp}.png`;
   const filepath = path.join(SCREENSHOTS_DIR, filename);
   
